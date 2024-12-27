@@ -1,11 +1,16 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { initializeCardano } from '../lib/cardano';
+import { initializeCardano, connectWallet } from '../lib/cardano';
 import type { NetworkType, WalletState } from '../types/cardano';
 
 interface NetworkContextProps {
   walletConnected: boolean;
   connectWallet: () => void;
   disconnectWallet: () => void;
+  walletState: WalletState;
+  connect: () => void;
+  disconnect: () => void;
+  network: NetworkType;
+  setNetwork: (network: NetworkType) => void;
 }
 
 const NetworkContext = createContext<NetworkContextProps | undefined>(undefined);
@@ -35,7 +40,7 @@ export function NetworkProvider({ children }: { children: ReactNode }): React.JS
   const connectWallet = async () => {
     if (!blaze) return;
     try {
-      // Implement wallet connection logic here
+      await connectWallet();
       setWalletState({ isConnected: true });
       setWalletConnected(true);
     } catch (error) {
@@ -50,12 +55,20 @@ export function NetworkProvider({ children }: { children: ReactNode }): React.JS
     setWalletConnected(false);
   };
 
+  const connect = connectWallet;
+  const disconnect = disconnectWallet;
+
   return (
     <NetworkContext.Provider 
       value={{ 
         walletConnected, 
         connectWallet, 
-        disconnectWallet
+        disconnectWallet,
+        walletState,
+        connect,
+        disconnect,
+        network,
+        setNetwork
       }}
     >
       {children}
