@@ -1,0 +1,13 @@
+ 
+extends: /etc/dolos/base.yaml
+
+chain:
+  network: preview
+  source:
+    type: n2n
+    magic: 2
+    address: preview-node.world.dev.cardano.org
+    port: 30002
+
+daemon:
+  port: 50051

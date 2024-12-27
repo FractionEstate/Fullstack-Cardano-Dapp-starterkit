@@ -1,0 +1,17 @@
+storage:
+  type: rocksdb
+  path: /data
+
+daemon:
+  host: 0.0.0.0
+  port: 50051
+  workers: 8
+
+metrics:
+  enabled: true
+  host: 0.0.0.0
+  port: 9090
+
+log:
+  level: info
+  format: json

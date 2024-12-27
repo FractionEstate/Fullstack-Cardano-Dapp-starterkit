@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@utxorpc/blaze-provider": "^0.3.1"
+  }
+}

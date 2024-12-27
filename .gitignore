@@ -1,6 +1,7 @@
 # Logs
-logs
+logs/
 *.log
+*.log.*
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -20,7 +21,7 @@ pids
 lib-cov
 
 # Coverage directory used by tools like istanbul
-coverage
+coverage/
 *.lcov
 
 # nyc test coverage
@@ -36,7 +37,9 @@ bower_components
 .lock-wscript
 
 # Compiled binary addons (https://nodejs.org/api/addons.html)
-build/Release
+build/
+dist/
+Release
 
 # Dependency directories
 node_modules/
@@ -128,3 +131,23 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Miscellaneous
+.DS_Store
+Thumbs.db
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+*.bak
+*.tmp
+
+# Docker
+docker-compose.override.yml
+docker-compose.override.yaml
+
+# Generated files
+*.wasm

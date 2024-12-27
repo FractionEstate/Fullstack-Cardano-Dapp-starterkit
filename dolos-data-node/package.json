@@ -1,0 +1,32 @@
+{
+  "name": "dolos-data-node",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "docker-compose -f docker/docker-compose.yml up -d",
+    "start:preview": "docker-compose -f docker/docker-compose.yml up -d dolos-preview",
+    "start:preprod": "docker-compose -f docker/docker-compose.yml up -d dolos-preprod",
+    "start:mainnet": "docker-compose -f docker/docker-compose.yml up -d dolos-mainnet",
+    "stop": "docker-compose -f docker/docker-compose.yml stop",
+    "stop:preview": "docker-compose -f docker/docker-compose.yml stop dolos-preview",
+    "stop:preprod": "docker-compose -f docker/docker-compose.yml stop dolos-preprod",
+    "stop:mainnet": "docker-compose -f docker/docker-compose.yml stop dolos-mainnet",
+    "clean": "docker-compose -f docker/docker-compose.yml down -v",
+    "clean:preview": "docker volume rm dolos-data-node_preview-data",
+    "clean:preprod": "docker volume rm dolos-data-node_preprod-data",
+    "clean:mainnet": "docker volume rm dolos-data-node_mainnet-data",
+    "logs": "docker-compose -f docker/docker-compose.yml logs -f",
+    "logs:preview": "docker logs -f dolos-preview",
+    "logs:preprod": "docker logs -f dolos-preprod",
+    "logs:mainnet": "docker logs -f dolos-mainnet",
+    "status": "docker-compose -f docker/docker-compose.yml ps",
+    "restart": "docker-compose -f docker/docker-compose.yml restart",
+    "restart:preview": "docker-compose -f docker/docker-compose.yml restart dolos-preview",
+    "restart:preprod": "docker-compose -f docker/docker-compose.yml restart dolos-preprod",
+    "restart:mainnet": "docker-compose -f docker/docker-compose.yml restart dolos-mainnet"
+  },
+  "dependencies": {
+    "@blaze-cardano/sdk": "^0.2.12",
+    "@utxorpc/blaze-provider": "^0.3.0"
+  }
+}

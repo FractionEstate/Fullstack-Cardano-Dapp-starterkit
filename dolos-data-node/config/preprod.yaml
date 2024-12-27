@@ -1,0 +1,12 @@
+extends: /etc/dolos/base.yaml
+
+chain:
+  network: preprod
+  source:
+    type: n2n
+    magic: 1
+    address: preprod-node.world.dev.cardano.org
+    port: 30000
+
+daemon:
+  port: 50052

@@ -1,0 +1,53 @@
+version: '3.8'
+
+x-dolos-base: &dolos-base
+  image: ghcr.io/txpipe/dolos:v0.8.0
+  restart: unless-stopped
+  environment:
+    - RUST_LOG=info
+
+services:
+  dolos-preview:
+    <<: *dolos-base
+    container_name: dolos-preview
+    ports:
+      - "50051:50051"
+      - "9091:9090"
+    volumes:
+      - ../config/base.yaml:/etc/dolos/base.yaml:ro
+      - ../config/preview.yaml:/etc/dolos/config.yaml:ro
+      - preview-data:/data
+    command: daemon
+
+  dolos-preprod:
+    <<: *dolos-base
+    container_name: dolos-preprod
+    ports:
+      - "50052:50051"
+      - "9092:9090"
+    volumes:
+      - ../config/base.yaml:/etc/dolos/base.yaml:ro
+      - ../config/preprod.yaml:/etc/dolos/config.yaml:ro
+      - preprod-data:/data
+    command: daemon
+
+  dolos-mainnet:
+    <<: *dolos-base
+    container_name: dolos-mainnet
+    ports:
+      - "50053:50051"
+      - "9093:9090"
+    volumes:
+      - ../config/base.yaml:/etc/dolos/base.yaml:ro
+      - ../config/mainnet.yaml:/etc/dolos/config.yaml:ro
+      - mainnet-data:/data
+    command: daemon
+
+volumes:
+  preview-data:
+  preprod-data:
+  mainnet-data:
+
+networks:
+  default:
+    name: dolos-network
