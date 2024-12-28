@@ -151,3 +151,6 @@ docker-compose.override.yaml
 
 # Generated files
 *.wasm
+
+# GPG configuration files
+.gnupg/

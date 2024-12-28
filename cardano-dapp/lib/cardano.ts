@@ -10,9 +10,9 @@ export type NetworkType = 'preview' | 'preprod' | 'mainnet';
  * Object containing the endpoints for each Cardano network type.
  */
 const NETWORK_ENDPOINTS = {
-  preview: 'http://localhost:50051',
-  preprod: 'http://localhost:50052',
-  mainnet: 'http://localhost:50053'
+  preview: process.env.NEXT_PUBLIC_PREVIEW_ENDPOINT || 'http://localhost:50051',
+  preprod: process.env.NEXT_PUBLIC_PREPROD_ENDPOINT || 'http://localhost:50052',
+  mainnet: process.env.NEXT_PUBLIC_MAINNET_ENDPOINT || 'http://localhost:50053'
 } as const;
 
 /**
@@ -30,7 +30,17 @@ const blazeInstances: Record<NetworkType, Blaze<U5C, Wallet> | null> = {
  * @returns {Promise<void>}
  */
 export const initializeCardano = async (): Promise<void> => {
-  // Logic to initialize Cardano
+  try {
+    const network: NetworkType = process.env.NEXT_PUBLIC_NETWORK as NetworkType || 'mainnet';
+    const endpoint = NETWORK_ENDPOINTS[network];
+    if (!endpoint) {
+      throw new Error(`Invalid network type: ${network}`);
+    }
+    blazeInstances[network] = new Blaze<U5C, Wallet>(endpoint);
+  } catch (error) {
+    console.error('Failed to initialize Cardano:', error);
+    throw error;
+  }
 };
 
 /**
@@ -39,7 +49,18 @@ export const initializeCardano = async (): Promise<void> => {
  * @returns {Promise<void>}
  */
 export const getNetworkInfo = async (): Promise<void> => {
-  // Logic to get network info
+  try {
+    const network: NetworkType = process.env.NEXT_PUBLIC_NETWORK as NetworkType || 'mainnet';
+    const instance = blazeInstances[network];
+    if (!instance) {
+      throw new Error('Blaze instance is not initialized.');
+    }
+    const info = await instance.getNetworkInfo();
+    console.log('Network Info:', info);
+  } catch (error) {
+    console.error('Failed to get network info:', error);
+    throw error;
+  }
 };
 
 /**
@@ -48,5 +69,15 @@ export const getNetworkInfo = async (): Promise<void> => {
  * @returns {Promise<void>}
  */
 export const connectWallet = async (): Promise<void> => {
-  // Logic to connect wallet
+  try {
+    const network: NetworkType = process.env.NEXT_PUBLIC_NETWORK as NetworkType || 'mainnet';
+    const instance = blazeInstances[network];
+    if (!instance) {
+      throw new Error('Blaze instance is not initialized.');
+    }
+    await instance.wallet.connectWallet();
+  } catch (error) {
+    console.error('Failed to connect wallet:', error);
+    throw error;
+  }
 };

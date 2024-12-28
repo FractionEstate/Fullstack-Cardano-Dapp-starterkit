@@ -1,11 +1,11 @@
 import React from 'react';
-import WalletConnect from '../components/WalletConnect';
+import WalletConnector from '../components/WalletConnector';
 
 const Home: React.FC = () => {
   return (
     <div>
       <h1>Cardano DApp</h1>
-      <WalletConnect />
+      <WalletConnector />
     </div>
   );
 };

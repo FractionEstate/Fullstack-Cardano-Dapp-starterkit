@@ -27,6 +27,8 @@
   },
   "dependencies": {
     "@blaze-cardano/sdk": "^0.2.12",
-    "@utxorpc/blaze-provider": "^0.3.0"
+    "@types/express": "^5.0.0",
+    "@utxorpc/blaze-provider": "^0.3.0",
+    "express": "^4.21.2"
   }
 }

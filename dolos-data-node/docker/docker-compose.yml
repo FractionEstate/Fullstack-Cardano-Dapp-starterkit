@@ -1,5 +1,3 @@
-version: '3.8'
-
 x-dolos-base: &dolos-base
   image: ghcr.io/txpipe/dolos:v0.8.0
   restart: unless-stopped
@@ -8,6 +6,7 @@ x-dolos-base: &dolos-base
 
 services:
   dolos-preview:
+    image: your-dolos-preview-image:latest
     <<: *dolos-base
     container_name: dolos-preview
     ports:
@@ -20,6 +19,7 @@ services:
     command: daemon
 
   dolos-preprod:
+    image: your-dolos-preprod-image:latest
     <<: *dolos-base
     container_name: dolos-preprod
     ports:
@@ -32,6 +32,7 @@ services:
     command: daemon
 
   dolos-mainnet:
+    image: your-dolos-mainnet-image:latest
     <<: *dolos-base
     container_name: dolos-mainnet
     ports:
